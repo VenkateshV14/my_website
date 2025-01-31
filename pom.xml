@@ -39,7 +39,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>install --legacy-peer-deps</arguments>
                         </configuration>
                     </execution>
                     <!-- Build React app -->
@@ -61,7 +61,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <warSourceDirectory>target</warSourceDirectory>
+                    <warSourceDirectory>target</warSourceDirectory> <!-- Change this if needed -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
