@@ -1,0 +1,180 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Body background and text color */
+  body {
+    background-color: #f4f4f9;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  /* Main about page container */
+  .about-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+  }
+  
+  /* About page title */
+  .about-title {
+    font-size: 2.5rem;
+    color: #2196F3;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Description of yourself */
+  .about-description {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+  
+  /* Contact info section */
+  .contact-info {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .contact-header {
+    font-size: 2rem;
+    color: #2196F3;
+    margin-bottom: 40px;
+  }
+  
+  /* Contact cards container */
+  .contact-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    animation: fadeInText 1.5s ease-out forwards;
+    opacity: 0;
+    animation-delay: 1s;
+  }
+  
+  /* Individual contact card */
+  .contact-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Title of contact method */
+  .contact-card h3 {
+    font-size: 1.5rem;
+    color: #4CAF50;
+    margin-top: 15px;
+  }
+  
+  /* Contact info text */
+  .contact-info-text {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Link styling for LinkedIn */
+  .contact-info-text a {
+    font-size: 1rem;
+    color: #2196F3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .contact-info-text a:hover {
+    color: #1976D2;
+  }
+  
+  /* Icons styling */
+  .contact-icon {
+    font-size: 3rem;
+    color: #2196F3;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .contact-card:hover .contact-icon {
+    color: #4CAF50;
+  }
+  
+  /* Animations */
+  @keyframes fadeInText {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .contact-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  
+    .contact-card {
+      padding: 15px;
+    }
+  
+    .about-title {
+      font-size: 2rem;
+    }
+  
+    .about-description {
+      font-size: 1rem;
+    }
+  
+    .contact-card h3 {
+      font-size: 1.3rem;
+    }
+  
+    .contact-info-text {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .about-title {
+      font-size: 1.6rem;
+    }
+  
+    .about-description {
+      font-size: 0.9rem;
+    }
+  
+    .contact-card {
+      padding: 10px;
+    }
+  
+    .contact-card h3 {
+      font-size: 1.1rem;
+    }
+  
+    .contact-info-text {
+      font-size: 0.8rem;
+    }
+  
+    .contact-info-text a {
+      font-size: 0.8rem;
+    }
+  }
+  

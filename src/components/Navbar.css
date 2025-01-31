@@ -1,0 +1,151 @@
+.navbar {
+  background: linear-gradient(to right, #0ae3e3, #5faded, #17c5dc);
+  padding: 10px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-toggle {
+  display: none;
+  cursor: pointer;
+  color: white;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0px;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-item {
+  margin: 0 50px; /* Increased margin between nav items */
+  position: relative;
+
+}
+
+.nav-item a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+  color: #19191b;
+  transform: scale(1.1); /* Scale effect on hover */
+}
+
+/* Animation for Nav List Items */
+.nav-item {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  animation-delay: 0.3s;
+}
+
+.nav-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.nav-item:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.nav-item:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.nav-item:nth-child(4) {
+  animation-delay: 0.5s;
+}
+
+.nav-item:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Adjust based on your navbar height */
+    left: 0;
+    right: 0;
+    background-color: #333;
+    display: none; /* Hide by default */
+    opacity: 0;
+    animation: slideInFromTop 0.3s forwards;
+    animation-delay: 0.1s;
+  }
+
+  .nav-list.active {
+    display: flex; /* Show when active */
+    opacity: 1;
+  }
+
+  .nav-item {
+    margin: 15px 0; /* Adjust margin for vertical layout */
+    text-align: center; /* Center text */
+    animation: fadeInMobile 0.3s forwards;
+    animation-delay: 0.3s;
+  }
+
+  .nav-item:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+
+  .nav-item:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  .nav-item:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .nav-item:nth-child(4) {
+    animation-delay: 0.5s;
+  }
+
+  .nav-item:nth-child(5) {
+    animation-delay: 0.6s;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInMobile {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
