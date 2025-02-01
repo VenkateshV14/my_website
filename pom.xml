@@ -1,3 +1,4 @@
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,18 +13,16 @@
     <description>A React app deployed as a WAR file to Tomcat</description>
 
     <properties>
-        <node.version>v18.20.5</node.version>
-        <npm.version>10.8.2</npm.version>
+        <node.version>v16.20.2</node.version>
+        <npm.version>8.19.4</npm.version>
     </properties>
 
     <build>
         <plugins>
-
-            <!-- Frontend Maven Plugin for React -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.0</version>
+                <version>1.15.1</version>
                 <executions>
                     <execution>
                         <id>install node and npm</id>
@@ -55,19 +54,23 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- WAR Plugin: Packages React Build Output -->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <warSourceDirectory>build</warSourceDirectory>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/build</directory>
+                            <targetPath>/</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
-
+```
