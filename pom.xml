@@ -18,8 +18,8 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.12.0</version>
                 <configuration>
-                    <nodeExecutable>/usr/bin/node</nodeExecutable>
-                    <npmExecutable>/usr/bin/npm</npmExecutable>
+                    <installDirectory>/usr</installDirectory>
+                    <skip>true</skip> <!-- Skip automatic Node.js installation -->
                 </configuration>
                 <executions>
                     <execution>
@@ -28,6 +28,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
+                            <npmExecutable>/usr/bin/npm</npmExecutable>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
@@ -37,6 +38,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
+                            <npmExecutable>/usr/bin/npm</npmExecutable>
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
