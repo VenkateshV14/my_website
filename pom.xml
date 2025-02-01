@@ -10,11 +10,6 @@
 
     <name>React Web Application</name>
 
-    <properties>
-        <node.version>18.20.5</node.version>
-        <npm.version>10.8.2</npm.version>
-    </properties>
-
     <build>
         <plugins>
             <!-- Use system-installed Node.js and npm -->
@@ -22,6 +17,10 @@
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.12.0</version>
+                <configuration>
+                    <nodeExecutable>/usr/bin/node</nodeExecutable>
+                    <npmExecutable>/usr/bin/npm</npmExecutable>
+                </configuration>
                 <executions>
                     <execution>
                         <id>npm install</id>
@@ -30,7 +29,6 @@
                         </goals>
                         <configuration>
                             <arguments>install</arguments>
-                            <installDirectory>/usr</installDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -40,7 +38,6 @@
                         </goals>
                         <configuration>
                             <arguments>run build</arguments>
-                            <installDirectory>/usr</installDirectory>
                         </configuration>
                     </execution>
                 </executions>
