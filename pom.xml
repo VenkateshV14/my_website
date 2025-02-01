@@ -8,27 +8,39 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <name>React Web Application</name>
+    <name>React WebApp</name>
+    <description>A React app deployed as a WAR file to Tomcat</description>
+
+    <properties>
+        <node.version>v18.20.5</node.version>
+        <npm.version>10.8.2</npm.version>
+    </properties>
 
     <build>
         <plugins>
-            <!-- Use system-installed Node.js and npm -->
+
+            <!-- Frontend Maven Plugin for React -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.12.0</version>
-                <configuration>
-                    <installDirectory>/usr</installDirectory>
-                    <skip>true</skip> <!-- Skip automatic Node.js installation -->
-                </configuration>
                 <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>npm install</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <npmExecutable>/usr/bin/npm</npmExecutable>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
@@ -38,23 +50,23 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <npmExecutable>/usr/bin/npm</npmExecutable>
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- Plugin to package as WAR -->
+            <!-- WAR Plugin: Packages React Build Output -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <warSourceDirectory>target/build</warSourceDirectory>
+                    <warSourceDirectory>build</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
