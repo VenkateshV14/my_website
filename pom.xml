@@ -21,6 +21,7 @@
                         <goals>
                             <goal>install-node-and-npm</goal> <!-- Install Node.js and npm -->
                             <goal>npm</goal> <!-- Run npm commands -->
+                            <goal>build</goal> <!-- Run npm run build to build the React app -->
                         </goals>
                     </execution>
                 </executions>
@@ -29,8 +30,9 @@
                     <npmVersion>7.24.0</npmVersion>    <!-- Specify npm version -->
                     <installDirectory>${project.build.directory}/frontend</installDirectory>
                     <workingDirectory>${project.basedir}</workingDirectory>
+                    <outputDirectory>${project.build.directory}/frontend/dist</outputDirectory> <!-- Output directory for React build -->
                 </configuration>
-        </plugin>
+            </plugin>
 
             <!-- Maven WAR Plugin to package the app into a WAR file -->
             <plugin>
@@ -40,7 +42,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>${project.basedir}/build</directory> <!-- React build output -->
+                            <directory>${project.build.directory}/frontend/dist</directory> <!-- React build output -->
                             <targetPath>ROOT</targetPath>  <!-- Put the build output at the root of the WAR -->
                         </resource>
                     </webResources>
