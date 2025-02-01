@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -8,83 +9,56 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>React App</name>
-    <description>A React application built with Maven</description>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <node.version>16.20.0</node.version>
-        <npm.version>9.8.0</npm.version>
-    </properties>
-
     <build>
         <plugins>
-            <!-- Frontend Maven Plugin -->
+            <!-- Maven Plugin for React Build -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+                <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.0</version>
+                <version>1.12</version>
                 <executions>
                     <execution>
-                        <id>install-node-and-npm</id>
                         <goals>
-                            <goal>install-node-and-npm</goal>
+                            <goal>install</goal>   <!-- Install dependencies -->
+                            <goal>build</goal>     <!-- Build the React app -->
                         </goals>
-                        <configuration>
-                            <nodeVersion>${node.version}</nodeVersion>
-                            <npmVersion>${npm.version}</npmVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-dependencies</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <nodeVersion>v16.0.0</nodeVersion>    <!-- Specify Node.js version -->
+                    <npmVersion>7.24.0</npmVersion>      <!-- Specify npm version -->
+                    <installDirectory>${project.build.directory}/frontend</installDirectory>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
             </plugin>
 
-            <!-- Maven WAR Plugin -->
+            <!-- Maven WAR Plugin to package the app into a WAR file -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.3.1</version>
                 <configuration>
-                    <warSourceDirectory>target</warSourceDirectory>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/build</directory> <!-- React build output -->
+                            <targetPath>ROOT</targetPath>  <!-- Put the build output at the root of the WAR -->
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Plugin to deploy to Tomcat -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>  <!-- Tomcat URL -->
+                    <server>tomcat-server</server> <!-- Your Tomcat server in settings.xml -->
+                    <path>/your-app</path>  <!-- Application context path -->
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-    </repositories>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.0</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>
 
