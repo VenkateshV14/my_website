@@ -41,7 +41,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run clean && npm run build</arguments>
+                            <arguments>run clean &amp;&amp; npm run build</arguments>
                         </configuration>
                     </execution>
                 </executions>
