@@ -1,50 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>react-frontend</artifactId>
-    <version>1.0.0</version>
+    <artifactId>react-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
+    <name>React App</name>
+    <url>http://example.com</url>
+
     <properties>
-        <node.version>v16.20.2</node.version>
-        <npm.version>8.19.4</npm.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <!-- Webapp libraries -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!-- React build dependencies -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.12</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>install-node-and-npm</goal>
+                        <goal>npm</goal>
+                        <goal>npm</goal>
+                    </goals>
+                    <configuration>
+                        <arguments>install</arguments>
+                    </configuration>
+                </execution>
+                <execution>
+                    <goals>
+                        <goal>npm</goal>
+                    </goals>
+                    <configuration>
+                        <arguments>run build</arguments>
+                    </configuration>
+                </execution>
+            </executions>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
-            <!-- Frontend Maven Plugin to install Node.js and build React app -->
+            <!-- Frontend Plugin -->
             <plugin>
-                <groupId>com.github.eirslett</groupId>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.1</version>
+                <version>1.12</version>
                 <executions>
-                    <!-- Install Node.js and npm -->
                     <execution>
-                        <id>install node and npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>${node.version}</nodeVersion>
-                            <npmVersion>${npm.version}</npmVersion>
-                        </configuration>
-                    </execution>
-                    <!-- Install npm dependencies -->
-                    <execution>
-                        <id>install dependencies</id>
-                        <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>install --legacy-peer-deps</arguments>
+                            <arguments>install</arguments>
                         </configuration>
                     </execution>
-                    <!-- Build React app -->
                     <execution>
-                        <id>build react</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -55,17 +80,18 @@
                 </executions>
             </plugin>
 
-            <!-- Maven WAR Plugin to package the React build folder as a WAR file -->
+            <!-- WAR Plugin for React app -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.3.0</version>
                 <configuration>
-                    <warSourceDirectory>target</warSourceDirectory> <!-- Change this if needed -->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webappDirectory>${project.build.directory}/ROOT</webappDirectory>
+                    <warName>react-app</warName>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
 
