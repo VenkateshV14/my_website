@@ -15,22 +15,22 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.1</version>  <!-- Updated version -->
+                <version>1.15.1</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>install</goal>   <!-- Install dependencies -->
-                            <goal>build</goal>     <!-- Build the React app -->
+                            <goal>install-node-and-npm</goal> <!-- Install Node.js and npm -->
+                            <goal>npm</goal> <!-- Run npm commands -->
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <nodeVersion>v16.0.0</nodeVersion>    <!-- Specify Node.js version -->
-                    <npmVersion>7.24.0</npmVersion>      <!-- Specify npm version -->
+                    <nodeVersion>v16.0.0</nodeVersion>  <!-- Specify Node.js version -->
+                    <npmVersion>7.24.0</npmVersion>    <!-- Specify npm version -->
                     <installDirectory>${project.build.directory}/frontend</installDirectory>
                     <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
-            </plugin>
+        </plugin>
 
             <!-- Maven WAR Plugin to package the app into a WAR file -->
             <plugin>
