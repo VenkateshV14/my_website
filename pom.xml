@@ -21,8 +21,10 @@
                         <goals>
                             <goal>install-node-and-npm</goal> <!-- Install Node.js and npm -->
                             <goal>npm</goal> <!-- Run npm commands -->
-                            <goal>build</goal> <!-- Run npm run build to build the React app -->
                         </goals>
+                        <configuration>
+                            <arguments>run build</arguments> <!-- Run npm run build -->
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
