@@ -1,65 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>react-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.yourcompany</groupId>
+    <artifactId>react-webapp</artifactId>
+    <version>1.0.0</version>
     <packaging>war</packaging>
+
+    <name>React Web Application</name>
+
+    <properties>
+        <node.version>18.16.0</node.version>  <!-- Set your Node.js version -->
+        <npm.version>9.5.1</npm.version>      <!-- Set your npm version -->
+    </properties>
 
     <build>
         <plugins>
-            <!-- Maven Plugin for React Build -->
+            <!-- Plugin to install Node.js and NPM -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.1</version>
+                <version>1.12.0</version>
                 <executions>
                     <execution>
+                        <id>install node and npm</id>
                         <goals>
-                            <goal>install-node-and-npm</goal> <!-- Install Node.js and npm -->
-                            <goal>npm</goal> <!-- Run npm commands -->
+                            <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments> <!-- Run npm run build -->
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <nodeVersion>v16.0.0</nodeVersion>  <!-- Specify Node.js version -->
-                    <npmVersion>7.24.0</npmVersion>    <!-- Specify npm version -->
-                    <installDirectory>${project.build.directory}/frontend</installDirectory>
-                    <workingDirectory>${project.basedir}</workingDirectory>
-                    <outputDirectory>${project.build.directory}/frontend/dist</outputDirectory> <!-- Output directory for React build -->
-                </configuration>
             </plugin>
 
-            <!-- Maven WAR Plugin to package the app into a WAR file -->
+            <!-- Plugin to package as WAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.3.2</version>
                 <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>${project.build.directory}/frontend/dist</directory> <!-- React build output -->
-                            <targetPath>ROOT</targetPath>  <!-- Put the build output at the root of the WAR -->
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
-
-            <!-- Maven Plugin to deploy to Tomcat -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <url>http://localhost:8080/manager/text</url>  <!-- Tomcat URL -->
-                    <server>tomcat-server</server> <!-- Your Tomcat server in settings.xml -->
-                    <path>/your-app</path>  <!-- Application context path -->
+                    <warSourceDirectory>target/build</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
