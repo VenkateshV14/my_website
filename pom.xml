@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
@@ -10,25 +9,36 @@
     <packaging>war</packaging>
 
     <name>React App</name>
-    <url>http://example.com</url>
+    <description>A React application built with Maven</description>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <node.version>16.20.0</node.version>
+        <npm.version>9.8.0</npm.version>
     </properties>
 
     <build>
         <plugins>
-            <!-- Frontend Maven Plugin (Updated to 1.14.2) -->
+            <!-- Frontend Maven Plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.14.2</version>
+                <version>1.12.0</version>
                 <executions>
+                    <execution>
+                        <id>install-node-and-npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>install-dependencies</id>
                         <goals>
-                            <goal>install-node-and-npm</goal>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
@@ -36,34 +46,45 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>clean-build</id>
+                        <id>build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run clean &amp;&amp; npm run build</arguments>
+                            <arguments>run build</arguments>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- WAR Plugin for Packaging -->
+            <!-- Maven WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.3.2</version>
                 <configuration>
-                    <warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
-                    <webResources>
-                        <resource>
-                            <directory>${project.basedir}/build</directory> 
-                            <targetPath>/</targetPath>
-                        </resource>
-                    </webResources>
-                    <warName>react-app</warName>
+                    <warSourceDirectory>target</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.12.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
 
