@@ -17,50 +17,16 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <!-- Webapp libraries -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <!-- React build dependencies -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.12</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>install-node-and-npm</goal>
-                        <goal>npm</goal>
-                        <goal>npm</goal>
-                    </goals>
-                    <configuration>
-                        <arguments>install</arguments>
-                    </configuration>
-                </execution>
-                <execution>
-                    <goals>
-                        <goal>npm</goal>
-                    </goals>
-                    <configuration>
-                        <arguments>run build</arguments>
-                    </configuration>
-                </execution>
-            </executions>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
-            <!-- Frontend Plugin -->
+            <!-- Frontend Maven Plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.12</version>
                 <executions>
                     <execution>
+                        <id>install-dependencies</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                             <goal>npm</goal>
@@ -70,28 +36,34 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>clean-build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run clean && npm run build</arguments>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- WAR Plugin for React app -->
+            <!-- WAR Plugin for Packaging -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <webappDirectory>${project.build.directory}/ROOT</webappDirectory>
+                    <warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/build</directory> 
+                            <targetPath>/</targetPath>
+                        </resource>
+                    </webResources>
                     <warName>react-app</warName>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
 
